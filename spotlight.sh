@@ -34,12 +34,7 @@ do
 	esac
 done
 
-function decodeURL
-{
-	printf "%b\n" "$(sed 's/+/ /g; s/%\([0-9A-F][0-9A-F]\)/\\x\1/g')"
-}
-
-response=$(wget -qO- -U "WindowsShellClient/0" "https://arc.msn.com/v3/Delivery/Placement?pid=209567&fmt=json&cdm=1&lc=en,en-US&ctry=US")
+response=$(wget -qO- -U "WindowsShellClient/0" "https://fd.api.iris.microsoft.com/v4/api/selection?placement=88000820&fmt=json&locale=en-US&country=US")
 status=$?
 
 if [ $status -ne 0 ]
@@ -48,24 +43,15 @@ then
 	exit $status
 fi
 
-item=$(jq -r ".batchrsp.items[0].item" <<< $response)
-
-landscapeUrl=$(jq -r ".ad.image_fullscreen_001_landscape.u" <<< $item)
-sha256=$(jq -r ".ad.image_fullscreen_001_landscape.sha256" <<< $item | base64 -d | hexdump -ve "1/1 \"%.2x\"")
-title=$(jq -r ".ad.title_text.tx" <<< $item)
-searchTerms=$(jq -r ".ad.title_destination_url.u" <<< $item | sed "s/.*q=\([^&]*\).*/\1/" | decodeURL)
+landscapeUrl=$(jq -r ".ad.landscapeImage.asset" <<< $response)
+title=$(jq -r ".ad.title" <<< $response)
+description=$(jq -r ".ad.description" <<< $response)
+url=$(jq -r ".ad.ctaUri" <<< $response | sed "s/.*\(http.*\)/\1/")
 
 mkdir -p "$backgroundsPath"
 imagePath="$backgroundsPath/$(date +%y-%m-%d-%H-%M-%S)-$title ($searchTerms).jpg"
 
 wget -qO "$imagePath" "$landscapeUrl"
-sha256calculated=$(sha256sum "$imagePath" | cut -d " " -f 1)
-
-if [ "$sha256" != "$sha256calculated" ]
-then
-	systemd-cat -t spotlight -p emerg <<< "Checksum incorrect"
-	exit 1
-fi
 
 gsettings set org.gnome.desktop.background picture-options "zoom"
 gsettings set org.gnome.desktop.background picture-uri "file://$imagePath"
@@ -81,5 +67,5 @@ then
 	rm "$previousImagePath"
 fi
 
-notify-send "Background changed" "$title ($searchTerms)" --icon=preferences-desktop-wallpaper --urgency=low --hint=string:desktop-entry:spotlight
-systemd-cat -t spotlight -p info <<< "Background changed to $title ($searchTerms)"
+notify-send "Background changed to \"$title\"" "$description" --icon=preferences-desktop-wallpaper --urgency=low --hint=string:desktop-entry:spotlight
+systemd-cat -t spotlight -p info <<< "Background changed to \"$title\" ($url)"
