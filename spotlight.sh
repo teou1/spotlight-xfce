@@ -49,7 +49,7 @@ description=$(jq -r ".ad.description" <<< $response)
 url=$(jq -r ".ad.ctaUri" <<< $response | sed "s/.*\(http.*\)/\1/")
 
 mkdir -p "$backgroundsPath"
-imagePath="$backgroundsPath/$(date +%y-%m-%d-%H-%M-%S)-$title ($searchTerms).jpg"
+imagePath="$backgroundsPath/$(date +%y-%m-%d-%H-%M-%S)-$title.jpg"
 
 wget -qO "$imagePath" "$landscapeUrl"
 
