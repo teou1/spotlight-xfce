@@ -41,21 +41,23 @@ if [ $status -ne 0 ]
 then
 	systemd-cat -t spotlight -p emerg <<< "Query failed"
 	exit $status
+else
+	rm /tmp/spotlight.json
+ 	cat "$response" > /tmp/spotlight.json
 fi
 
-landscapeUrl=$(jq -r ".ad.landscapeImage.asset" <<< $response)
-title=$(jq -r ".ad.title" <<< $response)
-description=$(jq -r ".ad.description" <<< $response)
-url=$(jq -r ".ad.ctaUri" <<< $response | sed "s/.*\(http.*\)/\1/")
+landscapeUrl=$(grep -oP '"landscapeImage":\{"asset":"\K[^"]*(?="\}|,"portraitImage")' /tmp/spotlight.json)
+title=$(grep -oP '"iconHoverText":\s*"\K[^"\\]*(?=\\r\\n)' /tmp/spotlight.json)
+url=$(grep -oP '"ctaUri":"microsoft-edge:\K[^"]*' /tmp/spotlight.json)
 
 mkdir -p "$backgroundsPath"
-imagePath="$backgroundsPath/$(date +%y-%m-%d-%H-%M-%S)-$title.jpg"
+imagePath="$backgroundsPath/$(date +%y-%m-%d-%H-%M-%S).jpg"
 
 wget -qO "$imagePath" "$landscapeUrl"
 
-gsettings set org.gnome.desktop.background picture-options "zoom"
-gsettings set org.gnome.desktop.background picture-uri "file://$imagePath"
-gsettings set org.gnome.desktop.background picture-uri-dark "file://$imagePath"
+# gsettings set org.gnome.desktop.background picture-options "zoom"
+# gsettings set org.gnome.desktop.background picture-uri "file://$imagePath"
+# gsettings set org.gnome.desktop.background picture-uri-dark "file://$imagePath"
 
 mkdir -p "$spotlightPath"
 
@@ -67,5 +69,5 @@ then
 	rm "$previousImagePath"
 fi
 
-notify-send "Background changed to \"$title\"" "$description" --icon=preferences-desktop-wallpaper --urgency=low --hint=string:desktop-entry:spotlight
+notify-send "Background changed to" "$title"  --icon=preferences-desktop-wallpaper
 systemd-cat -t spotlight -p info <<< "Background changed to \"$title\" ($url)"
