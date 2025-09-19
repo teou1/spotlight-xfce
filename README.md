@@ -39,7 +39,7 @@ The default behavior of spotlight is to discard the previous image when it fetch
 
  * -h shows a help message
  * -k keeps the previous image
- * -d stores the image into the given destination. Defaults to "$HOME/.local/share/spotlight".
+ * -d stores the image into the given destination. Defaults to "$HOME/.local/share/backgrounds".
 
 ### Service
 
