@@ -17,7 +17,7 @@ Forked from https://github.com/mariusknaust/spotlight
 * ~/.local/share/applications/spotlight-info.desktop
 ### Dependencies
 * wget
-* jq
+* grep
 * sed
 * glib2
 * systemd
