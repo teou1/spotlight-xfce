@@ -2,8 +2,9 @@
 Description=Runs Spotlight daily
 
 [Timer]
-OnCalendar=daily
+OnCalendar=Mon,Wed,Fri
 Persistent=true
+RandomizedDelaySec=30
 Unit=spotlight.service
 
 [Install]
