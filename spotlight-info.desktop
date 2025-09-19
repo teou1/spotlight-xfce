@@ -2,11 +2,9 @@
 Version=1.1
 Type=Application
 Name=Spotlight info
-Comment=Description of the current spotlight image
+Comment=Log of the used wallpapers with URLs
 Keywords=background;wallpaper;
 Icon=preferences-desktop-wallpaper
-Exec=bash -c 'notify-send "Wallpaper changed to:" "$(journalctl -t spotlight -n 1 --no-pager)" --icon=preferences-desktop-wallpaper'
+Exec=xfce4-terminal --hold -e "journalctl -t spotlight --no-pager"
 Actions=
 Categories=System;Utility;X-XFCE;X-Xfce-Toplevel;
-Terminal=false
-  
