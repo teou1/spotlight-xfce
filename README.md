@@ -28,7 +28,7 @@ Run `systemctl --user enable spotlight.timer` to get a new picture every second 
 
 To fetch a new background manually you can either use the desktop entry by looking for _Spotlight_ in your XFCE application menu or trigger the service from command line with `systemctl --user start spotlight.service`. You can also right-click on the desktop and select _Spotlight refresh_ on the top of it.
 
-Use the system log to get the past image descriptions, e.g. for the the current background `journalctl -t spotlight -n 1 --no-pager`.
+Use the system log to get the past image descriptions and urls, e.g. `journalctl -t spotlight --no-pager`.
 You can also rightclick the desktop or look for _Spotlight info_ in the application menu
 
 ## Configuration
@@ -50,5 +50,14 @@ In order to modify the behavior of the service `systemctl edit --user spotlight.
 ExecStart=
 ExecStart=/usr/bin/env bash spotlight.sh -k -d %h/Pictures/Spotlight
 ```
+
+### Other thoughts
+
+If you leave the default option to delete the old wallpaper on refresh, but it occurs to you that you actually wanted it saved, you can do the following:
+1) check the log with `journalctl -t spotlight --no-pager`
+2) ctrl-click the url to open it in browser. Click full screen to hide some of the overlays
+3) right-click and choose *inspect image*.
+4) from there, select the tab *network* and then *img*
+5) refresh the page and you will see a list with the five images of the day, from here you can preview or open in new tab or save
 
 
