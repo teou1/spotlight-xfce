@@ -43,7 +43,7 @@ then
 	exit $status
 else
 	rm /tmp/spotlight.json
- 	cat "$response" > /tmp/spotlight.json
+ 	echo "$response" > /tmp/spotlight.json
 fi
 
 landscapeUrl=$(grep -oP '"landscapeImage":\{"asset":"\K[^"]*(?="\}|,"portraitImage")' /tmp/spotlight.json)
