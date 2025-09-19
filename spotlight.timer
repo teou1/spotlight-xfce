@@ -1,5 +1,5 @@
 [Unit]
-Description=Runs Spotlight daily
+Description=Runs Spotlight bi-daily
 
 [Timer]
 OnCalendar=Mon,Wed,Fri
