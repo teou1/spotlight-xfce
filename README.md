@@ -7,12 +7,14 @@ Forked from https://github.com/mariusknaust/spotlight
 * /usr/bin/spotlight.sh
 * /usr/lib/systemd/user/spotlight.service
 * /usr/lib/systemd/user/spotlight.timer
-* /usr/share/applications/spotlight.desktop
+* /usr/share/applications/spotlight-refresh.desktop
+* /usr/share/applications/spotlight-info.desktop
 ### Local
 * ~/.local/bin/spotlight.sh
 * ~/.local/share/systemd/user/spotlight.service
 * ~/.local/share/systemd/user/spotlight.timer
-* ~/.local/share/applications/spotlight.desktop
+* ~/.local/share/applications/spotlight-refresh.desktop
+* ~/.local/share/applications/spotlight-info.desktop
 ### Dependencies
 * wget
 * jq
