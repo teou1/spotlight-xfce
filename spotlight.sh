@@ -70,4 +70,4 @@ then
 fi
 
 notify-send "Background changed to" "$title"  --icon=preferences-desktop-wallpaper
-systemd-cat -t spotlight -p info <<< "Background changed to \"$title\" ($url)"
+systemd-cat -t spotlight -p info <<< "Background changed to \"$title\" $url"
