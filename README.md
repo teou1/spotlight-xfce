@@ -1,5 +1,6 @@
 # spotlight
-Windows 10 Spotlight Background images for Gnome
+Windows 11 Spotlight Background images for XFCE
+Forked from https://github.com/mariusknaust/spotlight
 
 ## Installation
 ### System-wide
@@ -16,7 +17,7 @@ Windows 10 Spotlight Background images for Gnome
 * wget
 * jq
 * sed
-* glib2 (gnome)
+* glib2
 * systemd
 
 ## Usage
