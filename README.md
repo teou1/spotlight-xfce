@@ -15,6 +15,10 @@ Forked from https://github.com/mariusknaust/spotlight
 * ~/.local/share/systemd/user/spotlight.timer
 * ~/.local/share/applications/spotlight-refresh.desktop
 * ~/.local/share/applications/spotlight-info.desktop
+
+After copying the files, make spotlight.sh executable, enable the timer and refresh the new image as described below. After that you will have manually set your wallpaper to `~/.local/share/spotlight/background.jpg` the first time. Adjust the other settings as you wish, Style=Zoom is strongly recommended if you only have a fullhd monitor as the pulled images are large.
+From now on, if the timer is active, the image will change evry 2-3 days (you can edit the timer and set it to _daily_ instead of _Mon,Wed,Fri_)
+
 ### Dependencies
 * wget
 * grep
