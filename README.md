@@ -19,6 +19,7 @@ Forked from https://github.com/mariusknaust/spotlight
 * sed
 * glib2
 * systemd
+* libnotify
 
 ## Usage
 Run `systemctl --user enable spotlight.timer` to get a new picture every second day.
