@@ -1,15 +1,10 @@
 # spotlight
 Windows 11 Spotlight Background images for XFCE
-Forked from https://github.com/mariusknaust/spotlight
+Forked from https://github.com/mariusknaust/spotlight and modified to work on XFCE
 
 ## Installation
-### System-wide
-* /usr/bin/spotlight.sh
-* /usr/lib/systemd/user/spotlight.service
-* /usr/lib/systemd/user/spotlight.timer
-* /usr/share/applications/spotlight-refresh.desktop
-* /usr/share/applications/spotlight-info.desktop
-### Local
+
+### Local - copy the files to the respective locations
 * ~/.local/bin/spotlight.sh
 * ~/.local/share/systemd/user/spotlight.service
 * ~/.local/share/systemd/user/spotlight.timer
