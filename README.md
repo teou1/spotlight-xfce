@@ -17,7 +17,6 @@ From now on, if the timer is active, the image will change evry 2-3 days (you ca
 ### Dependencies
 * wget
 * grep
-* sed
 * glib2
 * systemd
 * libnotify
