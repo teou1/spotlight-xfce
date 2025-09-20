@@ -55,9 +55,14 @@ imagePath="$backgroundsPath/$(date +%y-%m-%d-%H-%M-%S).jpg"
 
 wget -qO "$imagePath" "$landscapeUrl"
 
-# gsettings set org.gnome.desktop.background picture-options "zoom"
-# gsettings set org.gnome.desktop.background picture-uri "file://$imagePath"
-# gsettings set org.gnome.desktop.background picture-uri-dark "file://$imagePath"
+lastimage=$(xfconf-query -l -c xfce4-desktop |grep workspace0/last)
+colorstyle=$(xfconf-query -l -c xfce4-desktop |grep workspace0/color)
+imagestyle=$(xfconf-query -l -c xfce4-desktop |grep workspace0/image)
+
+xfconf-query -c xfce4-desktop -p $colorstyle -s 3
+xfconf-query -c xfce4-desktop -p $imagestyle -s 5
+xfconf-query -c xfce4-desktop -p $lastimage -s nonexistent.jpg
+xfconf-query -c xfce4-desktop -p $lastimage -s $imagePath
 
 mkdir -p "$spotlightPath"
 
