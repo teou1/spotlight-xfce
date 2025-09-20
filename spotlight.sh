@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 dataPath="${XDG_DATA_HOME:-$HOME/.local/share}"
 
