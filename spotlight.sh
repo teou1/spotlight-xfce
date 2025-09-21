@@ -39,7 +39,7 @@ status=$?
 
 if [ $status -ne 0 ]
 then
-	systemd-cat -t spotlight -p emerg <<< "Query failed"
+	systemd-cat -t spotlight -p warning <<< "JSON query failed"
 	exit $status
 else
 	rm /tmp/spotlight.json
@@ -54,15 +54,22 @@ mkdir -p "$backgroundsPath"
 imagePath="$backgroundsPath/$(date +%y-%m-%d-%H-%M-%S).jpg"
 
 wget -qO "$imagePath" "$landscapeUrl"
+status=$?
+
+if [ $status -ne 0 ]
+then
+	systemd-cat -t spotlight -p warning <<< "Image download failed"
+	exit $status
+fi
 
 lastimage=$(xfconf-query -l -c xfce4-desktop |grep workspace0/last)
 colorstyle=$(xfconf-query -l -c xfce4-desktop |grep workspace0/color)
 imagestyle=$(xfconf-query -l -c xfce4-desktop |grep workspace0/image)
 
-xfconf-query -c xfce4-desktop -p $colorstyle -s 3
-xfconf-query -c xfce4-desktop -p $imagestyle -s 5
-xfconf-query -c xfce4-desktop -p $lastimage -s nonexistent.jpg
-xfconf-query -c xfce4-desktop -p $lastimage -s $imagePath
+xfconf-query -c xfce4-desktop -p "$colorstyle" -s 3
+xfconf-query -c xfce4-desktop -p "$imagestyle" -s 5
+xfconf-query -c xfce4-desktop -p "$lastimage" -s nonexistent.jpg
+xfconf-query -c xfce4-desktop -p "$lastimage" -s "$imagePath"
 
 mkdir -p "$spotlightPath"
 
